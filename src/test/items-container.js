@@ -20,7 +20,7 @@ export class ItemList extends React.Component {
 
 		return (
 			<div className="app">
-				{/*<Items collection={collection} onCreate={()=>this.create()}/>*/}
+				<Items collection={collection} onCreate={()=>this.create()}/>
 			</div>
 		);
 	}
@@ -33,13 +33,8 @@ const mapStateToProps = (state) => ({
 });
 
 // обновляем store
-const mapDispatchToProps = (dispatch) => {
-
-
-	return {
-		// onCreate: (record) => new ActionCreateItem(record).send(dispatch)
-		onCreate: (record) => dispatch(ActionCreateItem(record))
-	}
-};
+const mapDispatchToProps = (dispatch) => ({
+	onCreate: (record) => dispatch(ActionCreateItem(record))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemList);

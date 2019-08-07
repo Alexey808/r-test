@@ -1,54 +1,51 @@
 import { createStore } from 'redux'
 import { Map, List } from 'immutable';
 
-// import { createSelector } from 'reselect';
-
-function todosReduce(state, action) {
-	debugger;
-
+function reduce(state, action) {
 	switch (action.type) {
-		// case 'ADD':
-		// 	return state.concat([action.text]);
-
-		case 'ADD':
-			return Object.assign(state, state.collection.push(action.added));
-
-		case 'DELETE': return {};
-
 		case 'action/items/create':
-			return state.collection.concat([action.added]);
-
+			// return state.get("collection").push(action.added);
+			return state.set('collection', state.get('collection').push(action.added));
 		default:
 			return state;
 	}
 }
-const initialStore = {
+const initialStore = Map({
 	collection: new List([
-		Map({id: 1, prop: "testList1"}),
-		Map({id: 2, prop: "testList2"}),
-		Map({id: 3, prop: "testList3"}),
+		Map({id: 1, prop: "prop1"}),
+		Map({id: 2, prop: "prop2"}),
+		Map({id: 3, prop: "prop3"}),
 	])
-};
-
-export const store = createStore(todosReduce, initialStore);
-
-// console.log(store.getState(), initialStore);
-store.dispatch({
-	type: 'ADD',
-	added: Map({id: 0, prop: "testAddItem1"}),
 });
+
+export const store = createStore(reduce, initialStore);
+
+// // 1 dispatch
+// store.dispatch({
+// 	type: 'ADD',
+// 	added: Map({id: 4, prop: "prop5"}),
+// });
+// // 2 dispatch
+// store.dispatch({
+// 	type: 'ADD',
+// 	added: Map({id: 5, prop: "prop5"}),
+// });
+
+
+
+
 // console.log(store.getState(), initialStore);
-store.dispatch({
-	type: 'ADD',
-	added: Map({id: 10, prop: "testAddItem2"}),
-});
-// console.log(store.getState(), initialStore);
-//
-const st = store.getState();
-console.log(st);
-console.log(
-	st.collection.map((item) => console.log(item.get("id"), item.get("prop")))
-);
+
+
+
+
+
+
+// const st = store.getState();
+// console.log(st);
+// console.log(
+// 	st.collection.map((item) => console.log(item.get("id"), item.get("prop")))
+// );
 
 // store.dispatch({
 // 	type: 'DELETE',
