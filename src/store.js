@@ -1,15 +1,11 @@
-import { createStore } from 'redux'
+import {applyMiddleware, createStore} from 'redux'
 import { Map, List } from 'immutable';
+import { BaseReducer } from "./test/reducer";
 
-function reduce(state, action) {
-	switch (action.type) {
-		case 'action/items/create':
-			// return state.get("collection").push(action.added);
-			return state.set('collection', state.get('collection').push(action.added));
-		default:
-			return state;
-	}
-}
+import mySaga from "./test/sagas";
+import createSagaMiddleware from 'redux-saga';
+const sagaMiddleware = createSagaMiddleware();
+
 const initialStore = Map({
 	collection: new List([
 		Map({id: 1, prop: "prop1"}),
@@ -18,7 +14,9 @@ const initialStore = Map({
 	])
 });
 
-export const store = createStore(reduce, initialStore);
+export const store = createStore(BaseReducer, initialStore, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(mySaga);
 
 // // 1 dispatch
 // store.dispatch({
