@@ -3,14 +3,12 @@ import { Map, List } from 'immutable';
 
 function* testSaga(action) {
 	try {
-		console.log(action);
-		const newValue = Map({
-			id: action.subject.value.get('id'),
-			prop: action.subject.value.get('prop'),
-			test: 'test saga',
-		});
-debugger;
-		yield put({type: 'action/items/create', subject: {newValue}});
+		const id = action.subject.value.get('id');
+		const prop = action.subject.value.get('prop');
+
+		console.log("Добавлен элемент -> ", 'id:',id, 'prop',prop);
+
+		// yield put({type: 'action/items/create', subject: {value}});
 		console.log('running testSaga!');
 	} catch (e) {
 		yield put({type: 'action/items/create', message: e.message});
